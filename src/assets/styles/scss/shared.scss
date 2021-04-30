@@ -7,4 +7,9 @@ body {
   background-color: $primary-green;
   border-radius: 11px;
   color: $white;
+  transition: .3s;
+
+  &:hover {
+    background-color: darken($primary-green, 10%)
+  }
 }

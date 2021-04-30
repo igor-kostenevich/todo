@@ -88,7 +88,7 @@
     display: flex;
     align-items: center;
     padding: 12px 21px 12px 21px;
-    margin-top: 26px;
+    margin: 26px 0 40px;
 
     &.icon-plus:before {
       padding-right: 10px;
@@ -100,7 +100,6 @@
   width: 100%;
 
   &__item {
-    border-bottom: 1px solid $decor-color;
     padding-bottom: 5px;
     margin-bottom: 20px;
 
@@ -111,10 +110,19 @@
 }
 
 .item {
+  border-bottom: 1px solid $decor-color;
+
+  &.focus {
+    border-bottom: 1px solid $violet;
+  }
+
+  &.error {
+    border-bottom: 1px solid red;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;
-    // margin-bottom: 5px;
     padding: 0px 25px;
   }
   
@@ -158,15 +166,28 @@
   }
 
   &__icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 18px;
 
-    .icon-edit {
+    .icon-edit, 
+    .icon-cart {
       cursor: pointer;
-      margin-right: 10px;
     }
 
     .icon-cart {
+      margin-left: 10px;
+    }
+
+    .icon-check {
       cursor: pointer;
+      color: $violet;
+
+      &:before {
+        display: inline-flex;
+        font-size: 14px;
+      }
     }
 
     .icon-edit:hover:before,
@@ -183,6 +204,11 @@
     width: 100%;
     overflow: hidden;
     border: 0;
+    transition: color .3s ease;
+
+    &::placeholder {
+      color: $text-done;
+    }
 
     &.done {
       color: $text-done;
