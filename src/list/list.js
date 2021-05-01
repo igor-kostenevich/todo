@@ -47,7 +47,7 @@ const template = task => `
         <span class="icon-cart" data-item="delete"></span>
       </div>
     </div>
-    <textarea rows="1" class="item__text ${task.checked ? 'done' : ''}" placeholder="enter task" ${task.edit ? '' : 'disabled'}>${task.text}</textarea>
+    <textarea rows="1" class="item__text ${task.checked ? 'done' : ''}" placeholder="Please enter task description" ${task.edit ? '' : 'disabled'}>${task.text}</textarea>
   </li>
 `
 
@@ -75,28 +75,32 @@ list.addEventListener('click', e => {
       isEmptyList() // logic for empty do to list
       render()
     } else if (elementType === 'edit'){
-      task.edit = !task.edit
       const currentTextarea = el.querySelector('textarea')
       const value = currentTextarea.value
 
-      if(task.edit){
+      if(!task.edit){
+        task.edit = true
         currentTextarea.removeAttribute('disabled')
         e.target.classList.remove('icon-edit')
         e.target.classList.add('icon-check')
         el.classList.add('focus')
         currentTextarea.focus()
+      } else if (task.edit && !value) {
+        el.classList.add('error')
+        !el.querySelector('.err') ? el.insertAdjacentHTML(
+          'beforeend',
+          `<span class="err">The field cannot be empty</span>`
+          ) : ''
+        changeField(currentTextarea, el)
       } else {
         currentTextarea.setAttribute('disabled', '')
         e.target.classList.remove('icon-check')
         e.target.classList.add('icon-edit')
         el.classList.remove('focus')
-
-        if(!value){
-          console.log('reject');  
-        }
+        task.text = value
+        task.edit = false
       }
 
-      // ? Promise
       updateLocalStorage()
     }
   }
@@ -120,7 +124,15 @@ const updateLocalStorage = () => {
   localStorage.setItem('toDoItem', JSON.stringify(toDoList))
 }
 
-
+const changeField = (field, el) => {
+  field.addEventListener('input', () => {
+    if(el.classList.contains('error') && el.querySelector('.err')){
+      el.classList.remove('error')
+      el.querySelector('.err').remove()
+    }
+  })
+}
+// changeField()
 
 
 
@@ -156,7 +168,7 @@ const autoHeight = () => {
     })
   })
 }
-// autoHeight()
+autoHeight()
 
 // if(localStorage.getItem('toDoItem')) {
 //   toDoList = JSON.parse(localStorage.getItem('toDoItem'))

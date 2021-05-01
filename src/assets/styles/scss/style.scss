@@ -120,6 +120,13 @@
     border-bottom: 1px solid red;
   }
 
+  .err {
+    color: red;
+    font-size: 12px;
+    padding-left: 25px;
+    margin: 10px 0;
+  }
+
   &__top {
     display: flex;
     justify-content: space-between;
