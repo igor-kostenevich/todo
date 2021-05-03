@@ -3,7 +3,7 @@
   font-family: 'Poppins-black';
   font-weight: 900;
   font-style: normal;
-  src: url('../../fonts/Poppins-Black.ttf') format('truetype');
+  src: url('../../assets/fonts/Poppins-Black.ttf') format('truetype');
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-family: 'Poppins';
   font-weight: 400;
   font-style: normal;
-  src: url('../../fonts/Poppins-Regular.ttf') format('truetype');
+  src: url('../../assets/fonts/Poppins-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-family: 'Poppins-semibold';
   font-weight: 600;
   font-style: normal;
-  src: url('../../fonts/Poppins-SemiBold.ttf') format('truetype');
+  src: url('../../assets/fonts/Poppins-SemiBold.ttf') format('truetype');
 }
 
 
@@ -27,11 +27,11 @@
 
 @font-face {
   font-family: 'icons';
-  src:  url('../../fonts/icons.eot?2fn6cl');
-  src:  url('../../fonts/icons.eot?2fn6cl#iefix') format('embedded-opentype'),
-    url('../../fonts/icons.ttf?2fn6cl') format('truetype'),
-    url('../../fonts/icons.woff?2fn6cl') format('woff'),
-    url('../../fonts/icons.svg?2fn6cl#icons') format('svg');
+  src:  url('../../assets/fonts/icons.eot?2fn6cl');
+  src:  url('../../assets/fonts/icons.eot?2fn6cl#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/icons.ttf?2fn6cl') format('truetype'),
+    url('../../assets/fonts/icons.woff?2fn6cl') format('woff'),
+    url('../../assets/fonts/icons.svg?2fn6cl#icons') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;

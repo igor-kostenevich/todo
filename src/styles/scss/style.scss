@@ -212,6 +212,7 @@
     overflow: hidden;
     border: 0;
     transition: color .3s ease;
+    background-color: transparent;
 
     &::placeholder {
       color: $text-done;

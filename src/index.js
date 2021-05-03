@@ -1,4 +1,4 @@
-import './assets/styles/css/fonts.css'
-import './assets/styles/css/reset.css'
-import './assets/styles/scss/main.scss'
-import './list/list'
+import './styles/css/fonts.css'
+import './styles/css/reset.css'
+import './styles/scss/main.scss'
+import './js/main'
