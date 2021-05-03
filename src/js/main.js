@@ -6,18 +6,14 @@ const list = document.querySelector('.list')
 
 let toDoList = []
 
-function isEmptyList(){ // if empty list
-  if(toDoList.length === 0){
-    console.log('s');
-  }
-}
 
 
 if (localStorage.toDoItem) {
   toDoList = [...JSON.parse(localStorage.toDoItem)]
   isEmptyList()
-}
+} 
 
+// show info about tasks
 showInfo(toDoList)
 
 
@@ -75,8 +71,8 @@ list.addEventListener('click', e => {
       toDoList.splice(task, 1)
       showInfo(toDoList)
       updateLocalStorage()
-      isEmptyList() // logic for empty do to list
-      render()
+      render() // !? remake
+      isEmptyList()
     } else if (elementType === 'edit'){
       const currentTextarea = el.querySelector('textarea')
       const value = currentTextarea.value
@@ -109,15 +105,16 @@ list.addEventListener('click', e => {
   }
 })
 
-const onFocusFn = (el) => {
-  return el.focus()
-}
+// const onFocusFn = (el) => {
+//   return el.focus()
+// }
 
 
 btnCreateTask.forEach((item) => {
   item.addEventListener('click', () => {
     toDoList.push(createToDo())
     showInfo(toDoList)
+    isEmptyList()
     updateLocalStorage()
     render()
   })
@@ -136,7 +133,21 @@ const changeField = (field, el) => {
     }
   })
 }
-// changeField()
+
+// if empty list
+function isEmptyList(){ 
+  if(!toDoList.length){
+    list.insertAdjacentHTML(
+      'beforebegin',
+      '<div class="empty-list">No tasks. Please add the first task</div>'
+    )
+  } else {
+    const emptyList = document.querySelector('.empty-list')
+    if(emptyList) {
+      emptyList.remove()
+    }
+  }
+}
 
 
 
