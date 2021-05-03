@@ -1,6 +1,8 @@
+import createDate from './createDate'
+import showInfo from './showInfo'
+
 const btnCreateTask = document.querySelectorAll('[data-add-task]')
 const list = document.querySelector('.list')
-
 
 let toDoList = []
 
@@ -16,6 +18,8 @@ if (localStorage.toDoItem) {
   isEmptyList()
 }
 
+showInfo(toDoList)
+
 
 const createToDo = () => {
   let itemTask = {
@@ -23,10 +27,7 @@ const createToDo = () => {
     checked: false,
     edit: false,
     id: Date.now(),
-    date() {
-      const date = new Date()
-      return `${date.getDate()}`
-    },
+    date: createDate()
   }
  
   return itemTask
@@ -40,7 +41,7 @@ const template = task => `
           <input data-item="checkbox" class="check" type="checkbox" ${task.checked ? 'checked' : ''} data-checkbox>
           <span class="checkbox icon-checkbox"></span>
         </label>
-        <span data-item="date" class="item__date">3 Jan 2021</span>
+        <span data-item="date" class="item__date">${task.date}</span>
       </div>
       <div class="item__icons">
         <span class="${task.edit ? 'icon-check' : 'icon-edit'}" data-item="edit"></span>
@@ -68,9 +69,11 @@ list.addEventListener('click', e => {
       task.checked = !task.checked
       const currentTextarea = el.querySelector('textarea')
       task.checked ? currentTextarea.classList.add('done') : currentTextarea.classList.remove('done')
+      showInfo(toDoList)
       updateLocalStorage()
     } else if (elementType === 'delete') {
       toDoList.splice(task, 1)
+      showInfo(toDoList)
       updateLocalStorage()
       isEmptyList() // logic for empty do to list
       render()
@@ -114,6 +117,7 @@ const onFocusFn = (el) => {
 btnCreateTask.forEach((item) => {
   item.addEventListener('click', () => {
     toDoList.push(createToDo())
+    showInfo(toDoList)
     updateLocalStorage()
     render()
   })
@@ -134,16 +138,6 @@ const changeField = (field, el) => {
 }
 // changeField()
 
-
-
-
-// getDate()
-// getFullYear
-// date() {
-//   const date = new Date()
-//   // return `${date.getDate()}`
-//   return 'dada'
-// }
 
 
 // btnCreateTask.forEach((item) => {
