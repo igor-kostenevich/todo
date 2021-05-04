@@ -8,8 +8,9 @@ let toDoList = []
 
 if (localStorage.toDoItem) {
   toDoList = [...JSON.parse(localStorage.toDoItem)]
-  isEmptyList()
-} 
+}
+
+isEmptyList()
 
 // show info about tasks
 showInfo(toDoList)
