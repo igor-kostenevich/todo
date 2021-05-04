@@ -34,9 +34,14 @@ list.addEventListener('click', e => {
       const currentTextarea = el.querySelector('textarea')
       task.checked ? currentTextarea.classList.add('done') : currentTextarea.classList.remove('done')
     } else if (elementType === 'delete') {
-      toDoList.splice(idx, 1)
-      el.remove()
-      isEmptyList()
+      el.classList.add('leave')
+      setTimeout(() => {
+        toDoList.splice(idx, 1)
+        el.remove()
+        showInfo(toDoList)
+        updateLocalStorage()
+        isEmptyList()
+      }, 600)
     } else if (elementType === 'edit'){
       const currentTextarea = el.querySelector('textarea')
       const value = currentTextarea.value
