@@ -58,6 +58,7 @@ list.addEventListener('click', e => {
   if(elementType){
     const id = +e.target.closest('.list__item').dataset.id
     const el = e.target.closest('.list__item');
+    console.log(toDoList);
     const task = toDoList.find(item => item.id === id)
     const idx = toDoList.findIndex(item => item.id === id)
 
@@ -102,8 +103,9 @@ list.addEventListener('click', e => {
 })
 
 
-const createTask = () => {
-  let task = [createToDo()].map(template).join()
+const createTask = el => {
+  toDoList.push(el)
+  let task = [el].map(template).join()
   list.insertAdjacentHTML(
     'beforeend',
     task
@@ -114,10 +116,9 @@ const createTask = () => {
 
 btnCreateTask.forEach((item) => {
   item.addEventListener('click', () => {
-    toDoList.push(createToDo())
     showInfo(toDoList)
+    createTask(createToDo())
     isEmptyList()
-    createTask()
     updateLocalStorage()
     autoHeight()
   })
