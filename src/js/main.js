@@ -3,7 +3,6 @@ import showInfo from './showInfo'
 
 const btnCreateTask = document.querySelectorAll('[data-add-task]')
 const list = document.querySelector('.list')
-
 let toDoList = []
 
 
@@ -23,7 +22,7 @@ const createToDo = () => {
     checked: false,
     edit: false,
     id: Date.now(),
-    date: createDate()
+    date: createDate(),
   }
  
   return itemTask
@@ -34,7 +33,7 @@ const template = task => `
     <div class="item__top">
       <div class="item__items">
         <label>
-          <input data-item="checkbox" class="check" type="checkbox" ${task.checked ? 'checked' : ''} data-checkbox>
+          <input data-item="checkbox" class="check" type="checkbox" ${task.checked ? 'checked' : ''}>
           <span class="checkbox icon-checkbox"></span>
         </label>
         <span data-item="date" class="item__date">${task.date}</span>
@@ -49,7 +48,7 @@ const template = task => `
 `
 
 function render(){
-  const html = toDoList.map(template).join('')
+  const html = toDoList.map(template).join('')  // task => template(task)
   list.innerHTML = html
 }
 render()
@@ -60,18 +59,15 @@ list.addEventListener('click', e => {
     const id = +e.target.closest('.list__item').dataset.id
     const el = e.target.closest('.list__item');
     const task = toDoList.find(item => item.id === id)
+    const idx = toDoList.findIndex(item => item.id === id)
 
     if(elementType === 'checkbox'){
       task.checked = !task.checked
       const currentTextarea = el.querySelector('textarea')
       task.checked ? currentTextarea.classList.add('done') : currentTextarea.classList.remove('done')
-      showInfo(toDoList)
-      updateLocalStorage()
     } else if (elementType === 'delete') {
-      toDoList.splice(task, 1)
-      showInfo(toDoList)
-      updateLocalStorage()
-      render() // !? remake
+      toDoList.splice(idx, 1)
+      el.remove()
       isEmptyList()
     } else if (elementType === 'edit'){
       const currentTextarea = el.querySelector('textarea')
@@ -99,15 +95,21 @@ list.addEventListener('click', e => {
         task.text = value
         task.edit = false
       }
-
-      updateLocalStorage()
     }
+    showInfo(toDoList)
+    updateLocalStorage()
   }
 })
 
-// const onFocusFn = (el) => {
-//   return el.focus()
-// }
+
+const createTask = () => {
+  let task = [createToDo()].map(template).join()
+  list.insertAdjacentHTML(
+    'beforeend',
+    task
+  )
+  task = []
+}
 
 
 btnCreateTask.forEach((item) => {
@@ -115,8 +117,9 @@ btnCreateTask.forEach((item) => {
     toDoList.push(createToDo())
     showInfo(toDoList)
     isEmptyList()
+    createTask()
     updateLocalStorage()
-    render()
+    autoHeight()
   })
 })
 
